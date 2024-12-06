@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class Counter : MonoBehaviour
 
     private int _currentValue;
     private bool _isRunned = false;
+
+    public event Action<int> Changed;
 
     private void Start()
     {
@@ -42,7 +45,7 @@ public class Counter : MonoBehaviour
         while (_isRunned)
         {
             _currentValue += _increment;
-            Debug.Log(_currentValue);
+            Changed?.Invoke(_currentValue);
             
             yield return wait;
         }
